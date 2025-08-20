@@ -2,210 +2,255 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Starter Landing Page</title>
-  <meta name="description" content="A simple, mobile‑first landing page you can deploy to Vercel for free." />
-  <meta name="theme-color" content="#0ea5e9" />
-  <style>
-    :root {
-      --bg: #0b0f19;          /* page background */
-      --panel: #101827;       /* card/background panels */
-      --panel-2: #0d1422;     /* darker panel */
-      --text: #e5e7eb;        /* main text */
-      --muted: #9ca3af;       /* muted text */
-      --brand: #0ea5e9;       /* brand / accent */
-      --brand-2: #38bdf8;     /* lighter accent */
-      --ring: rgba(14,165,233,.35);
-      --ok: #22c55e;          /* success */
-      --warn: #f59e0b;        /* warning */
-      --danger: #ef4444;      /* danger */
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --maxw: 1120px;
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Ubuntu, Cantarell, "Helvetica Neue", "Noto Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text); background: radial-gradient(1200px 600px at 75% -10%, #0b1531, transparent 50%),
-               radial-gradient(900px 500px at 10% 0%, #0a1a33, transparent 50%), var(--bg);
-      line-height: 1.5;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }/* container */
-.wrap { max-width: var(--maxw); padding: 0 16px; margin: 0 auto; }
-
-/* header */
-header { position: sticky; top: 0; z-index: 40; backdrop-filter: saturate(130%) blur(6px); background: rgba(11,15,25,.65); border-bottom: 1px solid rgba(255,255,255,.06); }
-.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
-.logo { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); display: grid; place-items: center; box-shadow: var(--shadow); }
-.logo span { font-weight: 900; color: white; }
-
-.navlinks { display: none; align-items: center; gap: 18px; }
-.navlinks a { color: var(--muted); font-weight: 500; }
-.navlinks a:hover { color: var(--text); }
-
-.menu-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; background: var(--panel); border: 1px solid rgba(255,255,255,.06); }
-
-@media (min-width: 820px) {
-  .menu-btn { display: none; }
-  .navlinks { display: flex; }
-}
-
-/* mobile drawer */
-.drawer { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; }
-.drawer.open { display: block; }
-.sheet { position: absolute; right: 0; top: 0; height: 100%; width: min(86%, 360px); background: #0a1222; border-left: 1px solid rgba(255,255,255,.08); padding: 22px; display: grid; gap: 18px; }
-.sheet a { color: var(--muted); padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.06); background: var(--panel-2); }
-
-/* hero */
-.hero { padding: 64px 0 30px; display: grid; gap: 24px; align-items: center; }
-@media (min-width: 980px) { .hero { grid-template-columns: 1.1fr .9fr; padding: 88px 0 40px; gap: 36px; } }
-
-.pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(14,165,233,.09); color: #b6e7ff; border: 1px solid rgba(14,165,233,.35); padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: .3px; }
-h1 { font-size: clamp(28px, 5vw, 48px); line-height: 1.1; margin: 10px 0; }
-.lead { color: var(--muted); font-size: clamp(14px, 2.6vw, 18px); }
-
-.cta { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border-radius: 12px; font-weight: 600; border: 1px solid rgba(255,255,255,.08); background: var(--panel); }
-.btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); border: none; box-shadow: 0 6px 20px rgba(14,165,233,.35); }
-.btn:hover { transform: translateY(-1px); }
-
-.mock { border-radius: 16px; border: 1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); padding: 14px; box-shadow: var(--shadow); }
-.browser { background: var(--panel-2); border-radius: 12px; border: 1px solid rgba(255,255,255,.06); overflow: hidden; }
-.browser-top { display: flex; gap: 6px; padding: 10px; border-bottom: 1px solid rgba(255,255,255,.06); }
-.dot { width: 10px; height: 10px; border-radius: 999px; background: #ef4444; }
-.dot:nth-child(2) { background: #f59e0b; }
-.dot:nth-child(3) { background: #22c55e; }
-.browser-body { padding: 18px; color: var(--muted); font-size: 14px; }
-
-/* features */
-.section { padding: 34px 0; }
-.section h2 { font-size: clamp(22px, 3.5vw, 32px); margin: 6px 0 10px; }
-.grid { display: grid; gap: 14px; }
-@media (min-width: 740px) { .grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
-.card { background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border: 1px solid rgba(255,255,255,.06); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); }
-.card h3 { margin: 6px 0 4px; font-size: 18px; }
-.card p { color: var(--muted); font-size: 14px; }
-
-/* steps */
-.steps { counter-reset: step; display: grid; gap: 12px; }
-@media (min-width: 820px) { .steps { grid-template-columns: repeat(4, 1fr); } }
-.step { background: var(--panel); border: 1px solid rgba(255,255,255,.06); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); position: relative; }
-.step::before { counter-increment: step; content: counter(step); position: absolute; top: -10px; left: -10px; background: var(--brand); color: #001018; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; font-weight: 800; box-shadow: 0 8px 18px rgba(14,165,233,.35); }
-
-footer { padding: 40px 0 60px; color: var(--muted); border-top: 1px solid rgba(255,255,255,.06); margin-top: 30px; }
-
-.tag { display: inline-block; font-size: 12px; color: #9bd7ff; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.3); padding: 4px 8px; border-radius: 999px; }
-
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fun Allocation Check</title>
+<style>
+:root { --bg1:#0f172a; --bg2:#111827; --accent:#6ee7ff; --accent2:#a78bfa; --text:#e5e7eb; --muted:#9ca3af; }
+* { box-sizing: border-box; }
+body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial; background: radial-gradient(1000px 600px at 10% -10%, rgba(167,139,250,.25), transparent), radial-gradient(1000px 600px at 90% 110%, rgba(110,231,255,.25), transparent), linear-gradient(180deg, var(--bg1), var(--bg2)); color: var(--text); min-height: 100vh; display:flex; align-items:center; justify-content:center; padding:16px;}
+.card { width: 100%; max-width: 560px; background: rgba(17,24,39,.7); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,.07); border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,.4); padding: 20px; }
+h1 { font-size: 1.5rem; margin:0 0 6px; }
+p { color: var(--muted); margin-top:0 }
+label { font-size:.9rem; color:#cbd5e1; display:block; margin: 12px 0 6px; }
+input, select { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.08); background: rgba(2,6,23,.6); color: var(--text); outline: none; }
+input::placeholder{color:#64748b}
+.row { display:grid; grid-template-columns: 1fr; gap: 12px; }
+@media(min-width:520px){ .row{ grid-template-columns: 1fr 1fr; } }
+.btn { margin-top:14px; width:100%; padding: 12px 16px; border-radius: 12px; border: none; background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #0b1220; font-weight: 700; cursor:pointer; }
+.btn.secondary{ background: transparent; border:1px solid rgba(255,255,255,.12); color: var(--text); margin-top: 8px;}
+.result { margin-top:16px; padding:14px; border:1px dashed rgba(255,255,255,.18); border-radius: 16px; background: rgba(2,6,23,.5); }
+.badge { display:inline-block; padding:4px 10px; border-radius:999px; font-size:.75rem; border:1px solid rgba(255,255,255,.2); }
+.ticket { margin-top:14px; position:relative; background: linear-gradient(135deg, rgba(167,139,250,.12), rgba(110,231,255,.10)); border:1px solid rgba(255,255,255,.12); border-radius: 18px; padding: 16px; }
+.ticket:before, .ticket:after { content:''; position:absolute; top:50%; transform: translateY(-50%); width:18px; height:18px; background: #0f172a; border:1px solid rgba(255,255,255,.15); border-radius:50%; }
+.ticket:before{ left:-10px;}
+.ticket:after{ right:-10px;}
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+.small { color:#94a3b8; font-size:.8rem; }
+.amount { font-size: 2.2rem; font-weight:800; letter-spacing:.5px; margin:6px 0; }
+.tier { font-weight:700; }
+footer { margin-top: 18px; font-size: .8rem; color: #94a3b8; text-align:center;}
+</style>
 </head>
 <body>
-  <!-- Header / Navigation -->
-  <header>
-    <div class="wrap nav">
-      <a class="brand" href="#home" aria-label="Homepage">
-        <div class="logo" aria-hidden="true"><span>★</span></div>
-        <span>Starter</span>
-      </a>
-      <nav class="navlinks" aria-label="Main navigation">
-        <a href="#features">Features</a>
-        <a href="#steps">How it works</a>
-        <a href="#contact">Contact</a>
-        <a class="btn" href="#get-started">Get Started</a>
-      </nav>
-      <button id="menu" class="menu-btn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">☰</button>
-    </div>
-  </header>  <!-- Mobile Drawer -->  <div id="mobile-drawer" class="drawer" hidden>
-    <div class="sheet" role="dialog" aria-modal="true">
-      <a href="#features" onclick="closeDrawer()">Features</a>
-      <a href="#steps" onclick="closeDrawer()">How it works</a>
-      <a href="#contact" onclick="closeDrawer()">Contact</a>
-      <a class="btn" href="#get-started" onclick="closeDrawer()">Get Started</a>
-      <button class="btn" onclick="closeDrawer()">Close</button>
-    </div>
-  </div>  <!-- Hero -->  <main id="home" class="wrap hero">
-    <div>
-      <span class="pill">Mobile‑first • Free • Vercel‑ready</span>
-      <h1>Create a clean landing page in minutes.</h1>
-      <p class="lead">This is a simple, modern template with a hero, features, and step‑by‑step section. It’s 100% static (no build step), so you can deploy it to Vercel easily from your phone.</p>
-      <div class="cta" id="get-started">
-        <a class="btn primary" href="#steps">See the 4 steps</a>
-        <a class="btn" href="#features">Explore features</a>
+  <main class="card">
+    <h1>🎟️ Fun Allocation Check</h1>
+    <p>Not a real airdrop — just vibes. Enter an address and see your <span class="badge">random-but-consistent</span> allocation.</p>
+    <label>Project name</label>
+    <input id="project" placeholder="e.g., ComputeFi Carnival" value="ComputeFi Carnival">
+    <div class="row">
+      <div>
+        <label>Seed (keeps results consistent)</label>
+        <input id="seed" placeholder="Any phrase or number" value="Season-1">
       </div>
-      <div style="margin-top:14px"><span class="tag">No frameworks, single file</span></div>
-    </div><div class="mock" aria-hidden="true">
-  <div class="browser">
-    <div class="browser-top">
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div>
+        <label>Ticker</label>
+        <input id="ticker" placeholder="e.g., CARNI" value="CARNI">
+      </div>
     </div>
-    <div class="browser-body">
-
-<pre>
-&lt;h1&gt;Hello, world!&lt;/h1&gt;
-&lt;p&gt;Deploy this to Vercel in minutes.&lt;/p&gt;
-</pre></div>
+    <label>Wallet address (0x…)</label>
+    <input id="address" class="mono" placeholder="0xYourAddress" />
+    <div class="row">
+      <div>
+        <label>Optional: display name</label>
+        <input id="name" placeholder="@yourhandle">
+      </div>
+      <div>
+        <label>Network (just for the vibe)</label>
+        <select id="chain">
+          <option>Ethereum</option>
+          <option>Base</option>
+          <option>Solana</option>
+          <option>Polygon</option>
+          <option>BNB Chain</option>
+        </select>
+      </div>
+    </div>
+    <button id="check" class="btn">Check allocation</button>
+    <button id="download" class="btn secondary" disabled>Download check (PNG)</button><section id="out" class="result" hidden>
+  <div class="ticket">
+    <div class="small">Project</div>
+    <div id="outProject" class="tier"></div>
+    <div class="small">For</div>
+    <div id="outWho" class="mono"></div>
+    <div class="small">Tier</div>
+    <div id="outTier" class="tier"></div>
+    <div class="small">Allocation</div>
+    <div id="outAmount" class="amount"></div>
+    <div class="small">Chain</div>
+    <div id="outChain"></div>
+    <div class="small">Proof (hash)</div>
+    <div id="outHash" class="mono small"></div>
   </div>
-</div>
+</section>
+<footer>Built for fun. No financial value.</footer>
 
-  </main>  <!-- Features -->  <section id="features" class="wrap section">
-    <h2>Features</h2>
-    <div class="grid cols-3">
-      <article class="card">
-        <h3>Fast</h3>
-        <p>Pure HTML/CSS/JS — no build tools, so it ships instantly.</p>
-      </article>
-      <article class="card">
-        <h3>Responsive</h3>
-        <p>Looks great on mobile and desktop out of the box.</p>
-      </article>
-      <article class="card">
-        <h3>Easy to edit</h3>
-        <p>Everything is in one file. Open, change text, save.</p>
-      </article>
-    </div>
-  </section>  <!-- How it works / Steps -->  <section id="steps" class="wrap section">
-    <h2>How it works</h2>
-    <div class="steps">
-      <div class="step"><strong>Copy</strong><br> Save this file as <code>index.html</code> in a GitHub repo.</div>
-      <div class="step"><strong>Connect</strong><br> Import the repo in Vercel (Framework: <em>Other</em>).</div>
-      <div class="step"><strong>Deploy</strong><br> Leave Build Command blank. Output Directory blank.</div>
-      <div class="step"><strong>Share</strong><br> Your site is live at <code>yourname.vercel.app</code>.</div>
-    </div>
-  </section>  <!-- Contact / CTA -->  <section id="contact" class="wrap section">
-    <h2>Contact</h2>
-    <div class="card">
-      <p>Replace this with your contact details or a form service link. Tip: You can link a free form backend like <em>formsubmit.co</em> later if you want.</p>
-      <p style="margin: 10px 0 0"><a class="btn primary" href="#home">Back to top</a></p>
-    </div>
-  </section>  <footer>
-    <div class="wrap">
-      <div>&copy; <span id="year"></span> Your Name. Built with ❤️ and deployed on Vercel.</div>
-    </div>
-  </footer>  <script>
-    // Mobile drawer behavior
-    const btn = document.getElementById('menu');
-    const drawer = document.getElementById('mobile-drawer');
-    function openDrawer(){ drawer.hidden = false; drawer.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
-    function closeDrawer(){ drawer.classList.remove('open'); setTimeout(() => { drawer.hidden = true; }, 150); btn.setAttribute('aria-expanded','false'); }
-    btn.addEventListener('click', () => drawer.hidden ? openDrawer() : closeDrawer());
-    drawer.addEventListener('click', (e) => { if (e.target === drawer) closeDrawer(); });
+  </main><script>
+/* tiny helpers */
+const $ = sel => document.querySelector(sel);
+const encoder = new TextEncoder();
 
-    // Smooth scroll for same-page links
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const id = a.getAttribute('href');
-        const el = document.querySelector(id);
-        if (el) {
-          e.preventDefault();
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
+async function sha256(text){
+  const buf = await crypto.subtle.digest('SHA-256', encoder.encode(text));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+function hexToFloat01(hex8){ // use first 8 hex chars (32 bits)
+  const n = parseInt(hex8, 16);
+  return n / 0xFFFFFFFF;
+}
+function format(num){ return num.toLocaleString(undefined, {maximumFractionDigits: 0}); }
 
-    // Year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script></body>
-  </html>
+function pickTier(x){
+  // deterministic tiering by percent
+  // 0-0.03: S, 0.03-0.10: A, 0.10-0.25: B, 0.25-0.50: C, 0.50-0.80: D, 0.80-1.00: NGMI
+  if(x < 0.03) return {name:'S', amount: 1000};
+  if(x < 0.10) return {name:'A', amount: 500};
+  if(x < 0.25) return {name:'B', amount: 250};
+  if(x < 0.50) return {name:'C', amount: 100};
+  if(x < 0.80) return {name:'D', amount: 25};
+  return {name:'NGMI', amount: 0};
+}
+
+function drawCheckPNG(data){
+  const {project, name, address, ticker, chain, tier, amount, proof} = data;
+  const w = 1200, h = 600, pad = 40;
+  const c = Object.assign(document.createElement('canvas'), {width:w, height:h});
+  const ctx = c.getContext('2d');
+
+  // background gradient
+  const g = ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0, '#0f172a');
+  g.addColorStop(1, '#1f2937');
+  ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+
+  // accent blobs
+  const g2 = ctx.createRadialGradient(0,0,0,0,0,800);
+  g2.addColorStop(0,'rgba(167,139,250,0.35)');
+  g2.addColorStop(1,'rgba(167,139,250,0)');
+  ctx.fillStyle = g2; ctx.beginPath(); ctx.arc(100,80,400,0,Math.PI*2); ctx.fill();
+  const g3 = ctx.createRadialGradient(w, h, 0, w, h, 700);
+  g3.addColorStop(0,'rgba(110,231,255,0.35)');
+  g3.addColorStop(1,'rgba(110,231,255,0)');
+  ctx.fillStyle = g3; ctx.beginPath(); ctx.arc(w-80,h-50,350,0,Math.PI*2); ctx.fill();
+
+  // ticket card
+  const r = 28;
+  ctx.fillStyle = 'rgba(17,24,39,0.8)';
+  roundedRect(ctx, pad, pad, w-2*pad, h-2*pad, r);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  ctx.lineWidth = 2; ctx.stroke();
+
+  // "perforation" circles
+  ctx.fillStyle = '#0f172a'; ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  circle(ctx, pad-14, h/2, 20); ctx.fill(); ctx.stroke();
+  circle(ctx, w-pad+14, h/2, 20); ctx.fill(); ctx.stroke();
+
+  // text
+  ctx.fillStyle = '#e5e7eb';
+  ctx.font = '700 44px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillText(project, pad+32, pad+80);
+
+  ctx.font = '400 22px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillStyle = '#94a3b8';
+  ctx.fillText('For', pad+32, pad+130);
+  ctx.fillStyle = '#e5e7eb';
+  ctx.font = '600 28px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  const who = name || shortAddress(address);
+  ctx.fillText(who, pad+80, pad+130);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '400 22px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillText('Tier', pad+32, pad+180);
+  ctx.fillStyle = '#e5e7eb';
+  ctx.font = '800 60px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillText(tier, pad+100, pad+180);
+
+  ctx.fillStyle = '#94a3b8'; ctx.font = '400 22px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillText('Allocation', pad+32, pad+240);
+  ctx.fillStyle = '#e5e7eb'; ctx.font = '800 96px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillText(`${format(amount)} ${ticker}`, pad+32, pad+320);
+
+  ctx.fillStyle = '#94a3b8'; ctx.font = '400 22px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillText('Chain', pad+32, pad+370);
+  ctx.fillStyle = '#e5e7eb'; ctx.font = '600 28px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillText(chain, pad+100, pad+370);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '400 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  wrapText(ctx, `Proof: ${proof}`, pad+32, h-pad-80, w-2*pad-64, 24);
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '400 16px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto';
+  ctx.fillText('This is for fun — no monetary value.', pad+32, h-pad-40);
+
+  // footer tag
+  ctx.textAlign = 'right';
+  ctx.fillStyle = '#cbd5e1'; ctx.font = '600 18px ui-sans-serif, system-ui, -apple-system';
+  ctx.fillText('made with 💜 by you', w-pad-20, h-pad-24);
+
+  return c.toDataURL('image/png');
+
+  function roundedRect(ctx, x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x+r, y);
+    ctx.arcTo(x+w, y, x+w, y+h, r);
+    ctx.arcTo(x+w, y+h, x, y+h, r);
+    ctx.arcTo(x, y+h, x, y, r);
+    ctx.arcTo(x, y, x+w, y, r);
+    ctx.closePath();
+  }
+  function circle(ctx, x, y, r){ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); }
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+    const words = text.split(' ');
+    let line = '', yy = y;
+    for(let n=0;n<words.length;n++){
+      const test = line + words[n] + ' ';
+      if(ctx.measureText(test).width > maxWidth){
+        ctx.fillText(line, x, yy); line = words[n] + ' '; yy += lineHeight;
+      } else line = test;
+    }
+    ctx.fillText(line, x, yy);
+  }
+  function shortAddress(a){ return a.slice(0,6) + '…' + a.slice(-4); }
+}
+
+$('#check').addEventListener('click', async ()=>{
+  const project = $('#project').value.trim() || 'Meme Allocation';
+  const seed = $('#seed').value.trim() || 'Season-1';
+  const ticker = $('#ticker').value.trim().toUpperCase() || 'MEME';
+  const address = ($('#address').value || '').trim();
+  const chain = $('#chain').value;
+  const name = $('#name').value.trim();
+
+  if(!/^0x[a-fA-F0-9]{4,}$/.test(address)){
+    alert('Enter a valid address that starts with 0x…'); return;
+  }
+  const proof = await sha256((address.toLowerCase() + '|' + seed));
+  const x = hexToFloat01(proof.slice(0,8));
+  const tier = pickTier(x);
+  const amount = tier.amount;
+  const out = {
+    project, name, address, ticker, chain,
+    tier: tier.name, amount, proof
+  };
+
+  $('#outProject').textContent = project;
+  $('#outWho').textContent = name || address;
+  $('#outTier').textContent = tier.name;
+  $('#outAmount').textContent = `${format(amount)} ${ticker}`;
+  $('#outChain').textContent = chain;
+  $('#outHash').textContent = proof.slice(0, 32) + '…';
+  $('#out').hidden = false;
+
+  const dataUrl = drawCheckPNG(out);
+  $('#download').disabled = false;
+  $('#download').onclick = ()=>{
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = `${project.replace(/\s+/g,'_')}_${(name||address).replace(/[^a-zA-Z0-9_-]/g,'')}_${tier.name}.png`;
+    a.click();
+  };
+});
+</script></body>
+</html>
