@@ -1,0 +1,211 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Starter Landing Page</title>
+  <meta name="description" content="A simple, mobile‑first landing page you can deploy to Vercel for free." />
+  <meta name="theme-color" content="#0ea5e9" />
+  <style>
+    :root {
+      --bg: #0b0f19;          /* page background */
+      --panel: #101827;       /* card/background panels */
+      --panel-2: #0d1422;     /* darker panel */
+      --text: #e5e7eb;        /* main text */
+      --muted: #9ca3af;       /* muted text */
+      --brand: #0ea5e9;       /* brand / accent */
+      --brand-2: #38bdf8;     /* lighter accent */
+      --ring: rgba(14,165,233,.35);
+      --ok: #22c55e;          /* success */
+      --warn: #f59e0b;        /* warning */
+      --danger: #ef4444;      /* danger */
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --maxw: 1120px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Ubuntu, Cantarell, "Helvetica Neue", "Noto Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text); background: radial-gradient(1200px 600px at 75% -10%, #0b1531, transparent 50%),
+               radial-gradient(900px 500px at 10% 0%, #0a1a33, transparent 50%), var(--bg);
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }/* container */
+.wrap { max-width: var(--maxw); padding: 0 16px; margin: 0 auto; }
+
+/* header */
+header { position: sticky; top: 0; z-index: 40; backdrop-filter: saturate(130%) blur(6px); background: rgba(11,15,25,.65); border-bottom: 1px solid rgba(255,255,255,.06); }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .2px; }
+.logo { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); display: grid; place-items: center; box-shadow: var(--shadow); }
+.logo span { font-weight: 900; color: white; }
+
+.navlinks { display: none; align-items: center; gap: 18px; }
+.navlinks a { color: var(--muted); font-weight: 500; }
+.navlinks a:hover { color: var(--text); }
+
+.menu-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; background: var(--panel); border: 1px solid rgba(255,255,255,.06); }
+
+@media (min-width: 820px) {
+  .menu-btn { display: none; }
+  .navlinks { display: flex; }
+}
+
+/* mobile drawer */
+.drawer { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; }
+.drawer.open { display: block; }
+.sheet { position: absolute; right: 0; top: 0; height: 100%; width: min(86%, 360px); background: #0a1222; border-left: 1px solid rgba(255,255,255,.08); padding: 22px; display: grid; gap: 18px; }
+.sheet a { color: var(--muted); padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,.06); background: var(--panel-2); }
+
+/* hero */
+.hero { padding: 64px 0 30px; display: grid; gap: 24px; align-items: center; }
+@media (min-width: 980px) { .hero { grid-template-columns: 1.1fr .9fr; padding: 88px 0 40px; gap: 36px; } }
+
+.pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(14,165,233,.09); color: #b6e7ff; border: 1px solid rgba(14,165,233,.35); padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: .3px; }
+h1 { font-size: clamp(28px, 5vw, 48px); line-height: 1.1; margin: 10px 0; }
+.lead { color: var(--muted); font-size: clamp(14px, 2.6vw, 18px); }
+
+.cta { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border-radius: 12px; font-weight: 600; border: 1px solid rgba(255,255,255,.08); background: var(--panel); }
+.btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); border: none; box-shadow: 0 6px 20px rgba(14,165,233,.35); }
+.btn:hover { transform: translateY(-1px); }
+
+.mock { border-radius: 16px; border: 1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01)); padding: 14px; box-shadow: var(--shadow); }
+.browser { background: var(--panel-2); border-radius: 12px; border: 1px solid rgba(255,255,255,.06); overflow: hidden; }
+.browser-top { display: flex; gap: 6px; padding: 10px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.dot { width: 10px; height: 10px; border-radius: 999px; background: #ef4444; }
+.dot:nth-child(2) { background: #f59e0b; }
+.dot:nth-child(3) { background: #22c55e; }
+.browser-body { padding: 18px; color: var(--muted); font-size: 14px; }
+
+/* features */
+.section { padding: 34px 0; }
+.section h2 { font-size: clamp(22px, 3.5vw, 32px); margin: 6px 0 10px; }
+.grid { display: grid; gap: 14px; }
+@media (min-width: 740px) { .grid.cols-3 { grid-template-columns: repeat(3, 1fr); } }
+.card { background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border: 1px solid rgba(255,255,255,.06); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); }
+.card h3 { margin: 6px 0 4px; font-size: 18px; }
+.card p { color: var(--muted); font-size: 14px; }
+
+/* steps */
+.steps { counter-reset: step; display: grid; gap: 12px; }
+@media (min-width: 820px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+.step { background: var(--panel); border: 1px solid rgba(255,255,255,.06); padding: 16px; border-radius: var(--radius); box-shadow: var(--shadow); position: relative; }
+.step::before { counter-increment: step; content: counter(step); position: absolute; top: -10px; left: -10px; background: var(--brand); color: #001018; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 10px; font-weight: 800; box-shadow: 0 8px 18px rgba(14,165,233,.35); }
+
+footer { padding: 40px 0 60px; color: var(--muted); border-top: 1px solid rgba(255,255,255,.06); margin-top: 30px; }
+
+.tag { display: inline-block; font-size: 12px; color: #9bd7ff; background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.3); padding: 4px 8px; border-radius: 999px; }
+
+  </style>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="Homepage">
+        <div class="logo" aria-hidden="true"><span>★</span></div>
+        <span>Starter</span>
+      </a>
+      <nav class="navlinks" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#steps">How it works</a>
+        <a href="#contact">Contact</a>
+        <a class="btn" href="#get-started">Get Started</a>
+      </nav>
+      <button id="menu" class="menu-btn" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false">☰</button>
+    </div>
+  </header>  <!-- Mobile Drawer -->  <div id="mobile-drawer" class="drawer" hidden>
+    <div class="sheet" role="dialog" aria-modal="true">
+      <a href="#features" onclick="closeDrawer()">Features</a>
+      <a href="#steps" onclick="closeDrawer()">How it works</a>
+      <a href="#contact" onclick="closeDrawer()">Contact</a>
+      <a class="btn" href="#get-started" onclick="closeDrawer()">Get Started</a>
+      <button class="btn" onclick="closeDrawer()">Close</button>
+    </div>
+  </div>  <!-- Hero -->  <main id="home" class="wrap hero">
+    <div>
+      <span class="pill">Mobile‑first • Free • Vercel‑ready</span>
+      <h1>Create a clean landing page in minutes.</h1>
+      <p class="lead">This is a simple, modern template with a hero, features, and step‑by‑step section. It’s 100% static (no build step), so you can deploy it to Vercel easily from your phone.</p>
+      <div class="cta" id="get-started">
+        <a class="btn primary" href="#steps">See the 4 steps</a>
+        <a class="btn" href="#features">Explore features</a>
+      </div>
+      <div style="margin-top:14px"><span class="tag">No frameworks, single file</span></div>
+    </div><div class="mock" aria-hidden="true">
+  <div class="browser">
+    <div class="browser-top">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
+    <div class="browser-body">
+
+<pre>
+&lt;h1&gt;Hello, world!&lt;/h1&gt;
+&lt;p&gt;Deploy this to Vercel in minutes.&lt;/p&gt;
+</pre></div>
+  </div>
+</div>
+
+  </main>  <!-- Features -->  <section id="features" class="wrap section">
+    <h2>Features</h2>
+    <div class="grid cols-3">
+      <article class="card">
+        <h3>Fast</h3>
+        <p>Pure HTML/CSS/JS — no build tools, so it ships instantly.</p>
+      </article>
+      <article class="card">
+        <h3>Responsive</h3>
+        <p>Looks great on mobile and desktop out of the box.</p>
+      </article>
+      <article class="card">
+        <h3>Easy to edit</h3>
+        <p>Everything is in one file. Open, change text, save.</p>
+      </article>
+    </div>
+  </section>  <!-- How it works / Steps -->  <section id="steps" class="wrap section">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step"><strong>Copy</strong><br> Save this file as <code>index.html</code> in a GitHub repo.</div>
+      <div class="step"><strong>Connect</strong><br> Import the repo in Vercel (Framework: <em>Other</em>).</div>
+      <div class="step"><strong>Deploy</strong><br> Leave Build Command blank. Output Directory blank.</div>
+      <div class="step"><strong>Share</strong><br> Your site is live at <code>yourname.vercel.app</code>.</div>
+    </div>
+  </section>  <!-- Contact / CTA -->  <section id="contact" class="wrap section">
+    <h2>Contact</h2>
+    <div class="card">
+      <p>Replace this with your contact details or a form service link. Tip: You can link a free form backend like <em>formsubmit.co</em> later if you want.</p>
+      <p style="margin: 10px 0 0"><a class="btn primary" href="#home">Back to top</a></p>
+    </div>
+  </section>  <footer>
+    <div class="wrap">
+      <div>&copy; <span id="year"></span> Your Name. Built with ❤️ and deployed on Vercel.</div>
+    </div>
+  </footer>  <script>
+    // Mobile drawer behavior
+    const btn = document.getElementById('menu');
+    const drawer = document.getElementById('mobile-drawer');
+    function openDrawer(){ drawer.hidden = false; drawer.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    function closeDrawer(){ drawer.classList.remove('open'); setTimeout(() => { drawer.hidden = true; }, 150); btn.setAttribute('aria-expanded','false'); }
+    btn.addEventListener('click', () => drawer.hidden ? openDrawer() : closeDrawer());
+    drawer.addEventListener('click', (e) => { if (e.target === drawer) closeDrawer(); });
+
+    // Smooth scroll for same-page links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script></body>
+  </html>
